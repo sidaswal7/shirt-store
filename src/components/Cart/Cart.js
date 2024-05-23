@@ -1,11 +1,18 @@
 import React, { useContext } from "react";
 import Modal from "../UI/Modal";
 import CartItems from "./CartItems";
-import ShirtContext from "../../store/shirt-context";
+import CartContext from "../../store/cart-context";
 
+function sizeTable(sizeKey){
+  switch(sizeKey){
+    case "largeSize": return "L";
+    case "medSize": return "M";
+    default: return "S"
+  }
+}
 
 const Cart = (props) => {
-    const shirtCtx = useContext(ShirtContext);
+    const cartCtx = useContext(CartContext);
   return (
     <Modal>
       <header className="flex justify-between px-7 mb-4">
@@ -18,12 +25,13 @@ const Cart = (props) => {
         </button>
       </header>
       <ul>
-        {shirtCtx.shirts.map((item)=>{
+        {cartCtx.shirts.map((item)=>{
             return(
                 <CartItems
+                    key={item.id}
                     shirtName={item.shirtName}
                     price={item.price}
-                    size = {item.size}
+                    size = {sizeTable(item.size)}
                     quantity={item.quantity}
                 />
             )
@@ -32,7 +40,7 @@ const Cart = (props) => {
       <footer>
         <div className="flex justify-center">
           <h2 className="font-medium mt-4 text-xl">
-            Total: $
+            Total: ${cartCtx.shirts.reduce((sum,item)=>sum+item.quantity*item.price,0)}
           </h2>
         </div>
         <div className="flex justify-center">
