@@ -1,11 +1,14 @@
 import './App.css';
+import Header from './components/Header';
+import ShirtDetail from './components/ShirtDetail/ShirtDetail';
 import ShirtForm from './components/ShirtForm/ShirtForm';
 
 function App() {
   return (
     <>
-      <h1 className='font-bold text-center text-blue-800 text-2xl my-10'>ShirtStore.com</h1>
+      <Header/>
       <ShirtForm/>
+      <ShirtDetail/>
 
     </>
   );
